@@ -8,7 +8,7 @@
 
 **Subject:** COM763 – Machine Learning
 
-**Submission Date:** [INSERT DATE]
+**Submission Date:** 24 June 2026
 
 ---
 
@@ -206,9 +206,9 @@ Random Forest's superior ROC-AUC (0.7737) and cross-validation stability (σ = 0
 
 The system was deployed as a seven-page Streamlit web application accessible via:
 
-**Streamlit URL:** [INSERT STREAMLIT DEPLOYMENT URL]
+**Streamlit URL:** https://employee-arrition-prediction-system.streamlit.app/
 
-**GitHub Repository:** [INSERT GITHUB URL]
+**GitHub Repository:** https://github.com/alexmercertech/employee-arrition-prediction-system-app
 
 ### 10.1 Application Architecture
 
