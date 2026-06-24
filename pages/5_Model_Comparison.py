@@ -66,7 +66,7 @@ st.dataframe(
     comparison_df.style.highlight_max(axis=0, subset=["Accuracy", "Precision", "Recall", "F1 Score", "ROC-AUC"],
                                        color="rgba(108, 99, 255, 0.3)")
     .format({col: "{:.4f}" for col in comparison_df.columns if col != "Training Time (s)"}),
-    use_container_width=True,
+    width="stretch",
 )
 
 st.markdown("""
@@ -90,7 +90,7 @@ render_divider()
 st.markdown("### 📊 Visual Comparison")
 
 fig = plot_metrics_comparison(results, X_test, y_test)
-st.plotly_chart(fig, use_container_width=True)
+st.plotly_chart(fig, width="stretch")
 
 render_divider()
 
@@ -104,12 +104,12 @@ col_roc, col_pr = st.columns(2)
 with col_roc:
     st.markdown("### ROC Curves")
     fig_roc = plot_multi_roc_curves(results, X_test, y_test)
-    st.plotly_chart(fig_roc, use_container_width=True)
+    st.plotly_chart(fig_roc, width="stretch")
 
 with col_pr:
     st.markdown("### Precision-Recall Curves")
     fig_pr = plot_multi_pr_curves(results, X_test, y_test)
-    st.plotly_chart(fig_pr, use_container_width=True)
+    st.plotly_chart(fig_pr, width="stretch")
 
 st.markdown("""
 <div class="info-card">
@@ -136,7 +136,7 @@ for i, (name, res) in enumerate(results.items()):
         model = res["model"]
         y_pred = model.predict(X_test)
         fig_cm = plot_confusion_matrix(y_test, y_pred, title=name)
-        st.plotly_chart(fig_cm, use_container_width=True)
+        st.plotly_chart(fig_cm, width="stretch")
 
 render_divider()
 
@@ -154,7 +154,7 @@ model = results[selected_model]["model"]
 fig_fi = plot_feature_importance(model, feature_names, selected_model)
 
 if fig_fi:
-    st.plotly_chart(fig_fi, use_container_width=True)
+    st.plotly_chart(fig_fi, width="stretch")
 else:
     st.info("ℹ️ Feature importance is not available for this model type.")
 
@@ -168,7 +168,7 @@ render_divider()
 st.markdown("### 🔬 Overfitting / Underfitting Analysis")
 
 overfit_df = detect_overfitting(results)
-st.dataframe(overfit_df, use_container_width=True, hide_index=True)
+st.dataframe(overfit_df, width="stretch", hide_index=True)
 
 st.markdown("""
 <div class="info-card">

@@ -123,7 +123,7 @@ def get_model_configs() -> dict:
         "XGBoost": {
             "model": XGBClassifier(
                 random_state=42, eval_metric="logloss",
-                use_label_encoder=False, n_jobs=-1,
+                n_jobs=-1,
             ),
             "params": {
                 "n_estimators": [100, 200, 300],

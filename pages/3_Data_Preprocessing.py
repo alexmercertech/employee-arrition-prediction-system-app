@@ -71,7 +71,7 @@ with st.expander("📁 Step 1: Raw Data Overview", expanded=True):
     col3.metric("Memory", f"{df.memory_usage(deep=True).sum() / 1024 / 1024:.2f} MB")
 
     st.markdown("**First 5 Rows:**")
-    st.dataframe(df.head(), use_container_width=True, height=220)
+    st.dataframe(df.head(), width="stretch", height=220)
 
     st.markdown("**Data Types:**")
     dtype_df = pd.DataFrame({
@@ -81,7 +81,7 @@ with st.expander("📁 Step 1: Raw Data Overview", expanded=True):
         "Unique Values": df.nunique().values,
         "Sample Value": [str(df[col].iloc[0]) for col in df.columns],
     })
-    st.dataframe(dtype_df, use_container_width=True, hide_index=True, height=400)
+    st.dataframe(dtype_df, width="stretch", hide_index=True, height=400)
 
 
 # ---------------------------------------------------------------------------
@@ -105,7 +105,7 @@ with st.expander("🔍 Step 2: Missing Value Analysis"):
     else:
         st.warning(f"⚠️ Found {total_missing} missing values across {(missing_df['Missing_Count'] > 0).sum()} columns.")
 
-    st.dataframe(missing_df, use_container_width=True, hide_index=True)
+    st.dataframe(missing_df, width="stretch", hide_index=True)
 
     # Heatmap visualization of nulls (will be all zeros for this dataset)
     null_matrix = df.isnull().astype(int)
@@ -121,7 +121,7 @@ with st.expander("🔍 Step 2: Missing Value Analysis"):
         margin=dict(l=200, r=40, t=60, b=40),
         xaxis_title="Row Index",
     )
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
 
 
 # ---------------------------------------------------------------------------
@@ -201,7 +201,7 @@ with st.expander("📊 Step 5: Outlier Detection"):
 
     numeric_cols = df_cleaned.select_dtypes(include=[np.number]).columns.tolist()
     outlier_df = detect_outliers(df_cleaned, numeric_cols)
-    st.dataframe(outlier_df, use_container_width=True, hide_index=True)
+    st.dataframe(outlier_df, width="stretch", hide_index=True)
 
     # Box plot for selected column
     selected_col = st.selectbox("View Outlier Distribution", numeric_cols,
@@ -213,7 +213,7 @@ with st.expander("📊 Step 5: Outlier Detection"):
         template=PLOTLY_TEMPLATE, points="outliers",
     )
     fig.update_layout(height=400, margin=dict(l=40, r=40, t=40, b=40))
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
 
 
 # ---------------------------------------------------------------------------
@@ -231,14 +231,14 @@ with st.expander("🔧 Step 6: Feature Engineering"):
     feature_docs = get_feature_documentation()
 
     st.markdown("#### Engineered Features")
-    st.dataframe(feature_docs, use_container_width=True, hide_index=True, height=350)
+    st.dataframe(feature_docs, width="stretch", hide_index=True, height=350)
 
     st.markdown("#### Preview of New Features")
     new_feature_cols = feature_docs["Feature"].tolist()
     existing_new = [c for c in new_feature_cols if c in df_engineered.columns]
     st.dataframe(
         df_engineered[["Age", "MonthlyIncome", "YearsAtCompany"] + existing_new].head(10),
-        use_container_width=True,
+        width="stretch",
     )
 
     col1, col2 = st.columns(2)
@@ -288,7 +288,7 @@ with st.expander("🏷️ Step 7: Feature Encoding"):
     col2.metric("Features After Encoding", f"{len(df_encoded.columns)}")
 
     st.markdown("#### Encoded Data Preview")
-    st.dataframe(df_encoded.head(), use_container_width=True, height=220)
+    st.dataframe(df_encoded.head(), width="stretch", height=220)
 
 
 # ---------------------------------------------------------------------------
@@ -326,7 +326,7 @@ with st.expander("⚖️ Step 8: Class Imbalance & SMOTE"):
         yaxis_title="Count",
         margin=dict(l=40, r=40, t=60, b=40),
     )
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
 
     st.markdown("""
     **After SMOTE (applied during training):**
@@ -388,4 +388,4 @@ summary_data = {
 }
 
 summary_df = pd.DataFrame(summary_data)
-st.dataframe(summary_df, use_container_width=True, hide_index=True, height=380)
+st.dataframe(summary_df, width="stretch", hide_index=True, height=380)

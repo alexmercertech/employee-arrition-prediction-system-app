@@ -125,12 +125,12 @@ with tab1:
         )
 
     fig.update_layout(height=450, margin=dict(l=40, r=40, t=40, b=40))
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
 
     # Statistics
     st.markdown("#### 📋 Descriptive Statistics")
     stats_by_attrition = filtered.groupby("Attrition")[selected_feature].describe().round(2)
-    st.dataframe(stats_by_attrition, use_container_width=True)
+    st.dataframe(stats_by_attrition, width="stretch")
 
     render_divider()
 
@@ -151,14 +151,14 @@ with tab1:
         height=450, margin=dict(l=40, r=40, t=40, b=40),
         xaxis_tickangle=-45,
     )
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
 
     # Attrition rate per category
     rate_data = filtered.groupby(selected_cat)["Attrition"].apply(
         lambda x: (x == "Yes").mean() * 100
     ).round(1).sort_values(ascending=False).reset_index(name="Attrition Rate (%)")
 
-    st.dataframe(rate_data, use_container_width=True, hide_index=True)
+    st.dataframe(rate_data, width="stretch", hide_index=True)
 
 
 # ---------------------------------------------------------------------------
@@ -190,7 +190,7 @@ with tab2:
         margin=dict(l=100, r=40, t=40, b=100),
         xaxis_tickangle=-45,
     )
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
 
     st.markdown("""
     <div class="info-card">
@@ -216,7 +216,7 @@ with tab2:
 
     corr_df = pd.DataFrame(corr_pairs).sort_values("Absolute", ascending=False).head(15)
     corr_df = corr_df.drop(columns=["Absolute"])
-    st.dataframe(corr_df, use_container_width=True, hide_index=True)
+    st.dataframe(corr_df, width="stretch", hide_index=True)
 
 
 # ---------------------------------------------------------------------------
@@ -241,7 +241,7 @@ with tab3:
         hover_data=["Department", "JobRole"],
     )
     fig.update_layout(height=500, margin=dict(l=40, r=40, t=40, b=40))
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
 
     # Additional relationship views
     st.markdown("#### Job Role vs Attrition Rate")
@@ -270,7 +270,7 @@ with tab3:
         xaxis_title="Attrition Rate (%)", yaxis_title="",
         margin=dict(l=200, r=80, t=20, b=40),
     )
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
 
     st.markdown("""
     <div class="info-card">
@@ -316,7 +316,7 @@ with tab4:
             yaxis_title="Attrition Rate (%)",
             margin=dict(l=40, r=40, t=60, b=40),
         )
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, width="stretch")
 
     with col_ot2:
         # Overtime by department
@@ -333,7 +333,7 @@ with tab4:
             height=400,
             margin=dict(l=40, r=40, t=60, b=40),
         )
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, width="stretch")
 
     # Overtime statistics
     st.markdown("#### 📋 Overtime Statistics")
@@ -349,7 +349,7 @@ with tab4:
     ot_stats.columns = ["Avg Monthly Income", "Avg Work-Life Balance", "Avg Job Satisfaction",
                          "Avg Distance From Home", "Avg Years at Company"]
 
-    st.dataframe(ot_stats, use_container_width=True)
+    st.dataframe(ot_stats, width="stretch")
 
     st.markdown("""
     <div class="info-card">

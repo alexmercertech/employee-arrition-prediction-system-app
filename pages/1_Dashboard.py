@@ -121,7 +121,7 @@ with col_left:
                           x=0.5, y=0.5, font_size=16, showarrow=False,
                           font_color="#FAFAFA")],
     )
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
 
     st.markdown("""
     <div class="info-card">
@@ -147,7 +147,7 @@ with col_right:
         legend=dict(orientation="h", yanchor="bottom", y=-0.2, xanchor="center", x=0.5),
         xaxis_title="", yaxis_title="Employee Count",
     )
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
 
     # Business insight
     dept_rates = filtered_df.groupby("Department")["Attrition"].apply(
@@ -191,7 +191,7 @@ with col_left2:
         margin=dict(l=20, r=20, t=20, b=20),
         legend=dict(orientation="h", yanchor="bottom", y=-0.2, xanchor="center", x=0.5),
     )
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
 
     young_attrition = filtered_df[
         (filtered_df["Age"] < 35) & (filtered_df["Attrition"] == "Yes")
@@ -223,7 +223,7 @@ with col_right2:
         xaxis_tickangle=-45,
         legend=dict(orientation="h", yanchor="bottom", y=-0.35, xanchor="center", x=0.5),
     )
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
 
     avg_income_left = filtered_df[filtered_df["Attrition"] == "Yes"]["MonthlyIncome"].mean()
     avg_income_stayed = filtered_df[filtered_df["Attrition"] == "No"]["MonthlyIncome"].mean()
@@ -268,7 +268,7 @@ with col_left3:
         xaxis_title="Works Overtime?", yaxis_title="Employee Count",
         legend=dict(orientation="h", yanchor="bottom", y=-0.2, xanchor="center", x=0.5),
     )
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
 
     ot_yes_attrition = filtered_df[
         (filtered_df["OverTime"] == "Yes") & (filtered_df["Attrition"] == "Yes")
@@ -306,7 +306,7 @@ with col_right3:
         xaxis_title="Job Satisfaction Level", yaxis_title="Employee Count",
         legend=dict(orientation="h", yanchor="bottom", y=-0.2, xanchor="center", x=0.5),
     )
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
 
     low_sat_attrition = filtered_df[
         (filtered_df["JobSatisfaction"] == 1) & (filtered_df["Attrition"] == "Yes")

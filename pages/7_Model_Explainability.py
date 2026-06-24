@@ -116,7 +116,7 @@ with tab_global:
 
     try:
         fig_summary = plot_shap_summary(shap_result, max_display=15)
-        st.pyplot(fig_summary, use_container_width=True)
+        st.pyplot(fig_summary, width="stretch")
     except Exception as e:
         st.warning(f"⚠️ Could not render summary plot: {str(e)}")
 
@@ -131,7 +131,7 @@ with tab_global:
 
     try:
         fig_bar = plot_shap_bar(shap_result, max_display=15)
-        st.pyplot(fig_bar, use_container_width=True)
+        st.pyplot(fig_bar, width="stretch")
     except Exception as e:
         st.warning(f"⚠️ Could not render bar plot: {str(e)}")
 
@@ -157,7 +157,7 @@ with tab_global:
 
     try:
         fig_dep = plot_shap_dependence(shap_result, selected_dep_feature)
-        st.pyplot(fig_dep, use_container_width=True)
+        st.pyplot(fig_dep, width="stretch")
     except Exception as e:
         st.warning(f"⚠️ Could not render dependence plot: {str(e)}")
 
@@ -282,7 +282,7 @@ with tab_local:
 
         try:
             fig_waterfall = plot_shap_waterfall(shap_result, employee_idx, max_display=12)
-            st.pyplot(fig_waterfall, use_container_width=True)
+            st.pyplot(fig_waterfall, width="stretch")
         except Exception as e:
             st.warning(f"⚠️ Could not render waterfall plot: {str(e)}")
 
@@ -306,7 +306,7 @@ with tab_local:
                 cmap="RdYlGn_r",
                 vmin=-0.3, vmax=0.3,
             ).format({"Feature Value": "{:.3f}", "SHAP Value": "{:.4f}", "Absolute SHAP": "{:.4f}"}),
-            use_container_width=True,
+            width="stretch",
             hide_index=True,
         )
 

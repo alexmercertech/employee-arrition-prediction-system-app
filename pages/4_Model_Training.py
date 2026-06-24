@@ -97,7 +97,7 @@ if not selected_models:
     st.warning("⚠️ Please select at least one model to train.")
     st.stop()
 
-train_button = st.button("🏋️ Start Training", type="primary", use_container_width=True)
+train_button = st.button("🏋️ Start Training", type="primary", width="stretch")
 
 if train_button:
     with st.spinner("Preprocessing data..."):
@@ -180,7 +180,7 @@ if train_button:
             if res["best_params"]:
                 st.markdown("**Best Hyperparameters:**")
                 params_df = pd.DataFrame([res["best_params"]])
-                st.dataframe(params_df, use_container_width=True, hide_index=True)
+                st.dataframe(params_df, width="stretch", hide_index=True)
 
             # Cross-validation scores
             st.markdown("**Cross-Validation Scores (5-Fold):**")
@@ -188,7 +188,7 @@ if train_button:
                 "Fold": [f"Fold {i+1}" for i in range(len(res["cv_scores"]))],
                 "Accuracy": [f"{s:.4f}" for s in res["cv_scores"]],
             })
-            st.dataframe(cv_df.T, use_container_width=True)
+            st.dataframe(cv_df.T, width="stretch")
 
             # Overfitting check
             gap = res["overfitting_gap"]
@@ -213,7 +213,7 @@ if train_button:
     render_divider()
     st.markdown("### 🔬 Overfitting / Underfitting Analysis")
     overfit_df = detect_overfitting(results)
-    st.dataframe(overfit_df, use_container_width=True, hide_index=True)
+    st.dataframe(overfit_df, width="stretch", hide_index=True)
 
 
 # ---------------------------------------------------------------------------
@@ -226,7 +226,7 @@ st.markdown("### 💾 Saved Models")
 saved_models = list_saved_models()
 if saved_models:
     saved_df = pd.DataFrame(saved_models)
-    st.dataframe(saved_df, use_container_width=True, hide_index=True)
+    st.dataframe(saved_df, width="stretch", hide_index=True)
 else:
     st.info("ℹ️ No models saved yet. Train models above to save them.")
 

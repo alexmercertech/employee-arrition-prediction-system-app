@@ -235,7 +235,7 @@ with st.form("prediction_form"):
         business_travel = st.selectbox("Business Travel", ["Non-Travel", "Travel_Rarely", "Travel_Frequently"])
 
     st.markdown("")
-    submit = st.form_submit_button("🔮 Predict Attrition Risk", type="primary", use_container_width=True)
+    submit = st.form_submit_button("🔮 Predict Attrition Risk", type="primary", width="stretch")
 
 
 # ---------------------------------------------------------------------------
@@ -389,7 +389,7 @@ if submit:
         paper_bgcolor="#0E1117",
         plot_bgcolor="#0E1117",
     )
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
 
     render_divider()
 
