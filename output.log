@@ -1,0 +1,3 @@
+<class 'sklearn.ensemble._forest.RandomForestClassifier'>
+<class 'numpy.ndarray'> (1, 44, 2)
+Is list: False
