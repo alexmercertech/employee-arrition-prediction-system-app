@@ -128,6 +128,74 @@ The project follows a sequential ML lifecycle aligned with the CRISP-DM framewor
 > **[Figure 2 – Machine Learning Pipeline Diagram]**
 > *Fig. 2. End-to-end ML pipeline from raw CSV ingestion through preprocessing, SMOTE balancing, model training, evaluation and Streamlit deployment.*
 
+```mermaid
+flowchart LR
+    subgraph Ingestion["1. Data Ingestion"]
+        A["📄 CSV File<br/>WA_Fn-UseC_-HR-Employee-Attrition.csv"] --> B["Load & Validate<br/>1,470 rows × 35 cols"]
+    end
+
+    subgraph Cleaning["2. Data Cleaning"]
+        B --> C["Drop Constants<br/>EmployeeCount, Over18,<br/>StandardHours, EmployeeNumber"]
+        C --> D["Duplicate Check<br/>0 duplicates found"]
+        D --> E["Missing Values<br/>0 nulls confirmed"]
+    end
+
+    subgraph FeatEng["3. Feature Engineering"]
+        E --> F["8 Derived Features<br/>YearsPerCompany · IncomePerYearWorked<br/>SatisfactionIndex · IsNewEmployee<br/>PromotionStagnation · OvertimeDistance<br/>TenureRatio · ManagerTenureRatio"]
+    end
+
+    subgraph Encoding["4. Encoding & Scaling"]
+        F --> G["Label Encoding<br/>Attrition · Gender · OverTime"]
+        G --> H["One-Hot Encoding<br/>Department · JobRole<br/>MaritalStatus · EducationField<br/>BusinessTravel"]
+        H --> I["StandardScaler<br/>Zero-Mean, Unit-Variance"]
+    end
+
+    subgraph Split["5. Split & Balance"]
+        I --> J["Stratified Split<br/>80% Train / 20% Test"]
+        J --> K["SMOTE<br/>Training Set Only"]
+        K --> L["Balanced Classes<br/>50% / 50%"]
+    end
+
+    subgraph Training["6. Model Training"]
+        L --> M["Logistic Regression<br/>C=10, L2, lbfgs"]
+        L --> N["Decision Tree<br/>max_depth=15, gini"]
+        L --> O["Random Forest<br/>n=300, log2, depth=15"]
+        L --> P["XGBoost<br/>n=200, lr=0.1, depth=7"]
+        M --> Q["RandomizedSearchCV<br/>Hyperparameter Tuning"]
+        N --> Q
+        O --> Q
+        P --> Q
+    end
+
+    subgraph Evaluation["7. Evaluation"]
+        Q --> R["Metrics<br/>Accuracy · Precision<br/>Recall · F1 · ROC-AUC"]
+        R --> S["Cross-Validation<br/>5-Fold Stratified"]
+        S --> T["Overfitting Analysis<br/>Train vs Test Gap"]
+        T --> U["Best Model<br/>Logistic Regression<br/>F1 = 0.4176"]
+    end
+
+    subgraph Explain["8. Explainability"]
+        U --> V["SHAP Analysis<br/>TreeExplainer"]
+        V --> W["Global: Summary Plot<br/>Local: Waterfall Plot"]
+    end
+
+    subgraph Deploy["9. Deployment"]
+        U --> X["Joblib Save<br/>Model + Scaler"]
+        X --> Y["🖥️ Streamlit App<br/>7-Page Dashboard"]
+        W --> Y
+    end
+
+    style Ingestion fill:#0d1117,stroke:#6C63FF,stroke-width:2px,color:#c9d1d9
+    style Cleaning fill:#0d1117,stroke:#6C63FF,stroke-width:2px,color:#c9d1d9
+    style FeatEng fill:#0d1117,stroke:#00D4AA,stroke-width:2px,color:#c9d1d9
+    style Encoding fill:#0d1117,stroke:#00D4AA,stroke-width:2px,color:#c9d1d9
+    style Split fill:#0d1117,stroke:#FFD93D,stroke-width:2px,color:#c9d1d9
+    style Training fill:#0d1117,stroke:#FF6B6B,stroke-width:2px,color:#c9d1d9
+    style Evaluation fill:#0d1117,stroke:#FF8A5C,stroke-width:2px,color:#c9d1d9
+    style Explain fill:#0d1117,stroke:#DDA0DD,stroke-width:2px,color:#c9d1d9
+    style Deploy fill:#0d1117,stroke:#4ECDC4,stroke-width:2px,color:#c9d1d9
+```
+
 ---
 
 ## 5. Data Exploration and Preprocessing
