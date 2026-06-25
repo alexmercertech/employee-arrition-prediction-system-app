@@ -31,6 +31,64 @@ Success is measured primarily by **F1 Score**, chosen because the dataset exhibi
 > **[Figure 1 – System Overview Diagram]**
 > *Fig. 1. High-level architecture of the Employee Attrition Prediction System showing the data pipeline, model layer, explainability module and Streamlit presentation tier.*
 
+```mermaid
+graph TB
+    subgraph DataPipeline["📦 Data Pipeline"]
+        A["IBM HR CSV Dataset<br/>1,470 records × 35 attributes"] --> B["Data Validation<br/>Schema & Integrity Checks"]
+        B --> C["Preprocessing<br/>Drop Constants · Handle Duplicates"]
+        C --> D["Feature Engineering<br/>8 Derived Features"]
+        D --> E["Encoding<br/>Label · One-Hot"]
+        E --> F["Scaling<br/>StandardScaler"]
+        F --> G["SMOTE<br/>Class Balancing"]
+    end
+
+    subgraph ModelLayer["🧠 Model Layer"]
+        G --> H["Train/Test Split<br/>80/20 Stratified"]
+        H --> I["Logistic Regression"]
+        H --> J["Decision Tree"]
+        H --> K["Random Forest"]
+        H --> L["XGBoost"]
+        I --> M["RandomizedSearchCV<br/>Hyperparameter Tuning"]
+        J --> M
+        K --> M
+        L --> M
+        M --> N["Model Evaluation<br/>Accuracy · Precision · Recall · F1 · ROC-AUC"]
+        N --> O["Best Model Selection<br/>F1 Score Criterion"]
+        O --> P["Model Persistence<br/>Joblib Serialisation"]
+    end
+
+    subgraph Explainability["🔍 Explainability Module"]
+        P --> Q["SHAP TreeExplainer"]
+        Q --> R["Global Analysis<br/>Summary & Bar Plots"]
+        Q --> S["Local Analysis<br/>Waterfall & Force Plots"]
+        Q --> T["Feature Importance<br/>Top Predictors"]
+    end
+
+    subgraph Streamlit["🖥️ Streamlit Presentation Tier"]
+        U["Dashboard<br/>KPI Cards · Charts"]
+        V["Data Exploration<br/>EDA · Filters · Correlations"]
+        W["Data Preprocessing<br/>Pipeline Visualisation"]
+        X["Model Training<br/>One-Click Training"]
+        Y["Model Comparison<br/>Metrics · ROC · PR Curves"]
+        Z["Employee Prediction<br/>Real-Time Risk Scoring"]
+        AA["Model Explainability<br/>SHAP Visualisations"]
+    end
+
+    P --> U
+    P --> Z
+    R --> AA
+    S --> AA
+    T --> AA
+    N --> Y
+    B --> V
+    C --> W
+
+    style DataPipeline fill:#1a1f2e,stroke:#6C63FF,stroke-width:2px,color:#fff
+    style ModelLayer fill:#1a1f2e,stroke:#00D4AA,stroke-width:2px,color:#fff
+    style Explainability fill:#1a1f2e,stroke:#FFD93D,stroke-width:2px,color:#fff
+    style Streamlit fill:#1a1f2e,stroke:#FF6B6B,stroke-width:2px,color:#fff
+```
+
 ---
 
 ## 3. Dataset Description
