@@ -78,10 +78,9 @@ def get_model_configs() -> dict:
     """
     configs = {
         "Logistic Regression": {
-            "model": LogisticRegression(max_iter=1000, random_state=42),
+            "model": LogisticRegression(max_iter=1000, random_state=42, l1_ratio=0),
             "params": {
                 "C": [0.01, 0.1, 1, 10, 100],
-                "penalty": ["l2"],
                 "solver": ["lbfgs", "liblinear"],
             },
             "description": (
